@@ -244,11 +244,11 @@ function App() {
                 label="Total Available Cash"
                 value={formatCurrency(results.totalAvailableCash)}
               />
-              <ResultCard
+              {/* <ResultCard
                 label="Total Interest Paid"
                 value={formatCurrency(results.totalInterestPaid)}
                 description="Over the full mortgage terms"
-              />
+              /> */}
             </div>
           </div>
         </div>
