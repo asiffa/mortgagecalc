@@ -63,7 +63,10 @@ function App() {
       maintenance: 0,
       other: 0
     }
-  ,isFirstTimeBuyer: false,
+  ,
+  primaryApplicantSalary: 0,
+  secondaryApplicantSalary: 0,
+  isFirstTimeBuyer: false,
   isAdditionalProperty: false,
   isNonUKResident: false
   });
@@ -338,6 +341,16 @@ function App() {
             value={formatCurrency(results.secondaryApplicantShare.monthlyPayment + results.secondaryApplicantShare.monthlyBills)}
             description="Including mortgage and bills"
           />
+              <ResultCard
+              label="Primary applicant money left after mortgage and bills"
+              value={formatCurrency(results.primaryApplicantShare.monthlySalaryAfterTax - results.primaryApplicantShare.monthlyBills - results.primaryApplicantShare.monthlyPayment)}
+              description="After paying mortgage and bills" 
+              />
+               <ResultCard
+              label="Secondary applicant money left after mortgage and bills"
+              value={formatCurrency(results.secondaryApplicantShare.monthlySalaryAfterTax - results.secondaryApplicantShare.monthlyBills - results.secondaryApplicantShare.monthlyPayment)}
+              description="After paying mortgage and bills" 
+              />
           <ResultCard
             label="Primary applicant purchase fees"
             value={formatCurrency(results.primaryApplicantShare.purchaseFees)}
@@ -356,6 +369,7 @@ function App() {
             description="Over the full mortgage terms"
           />
         </div>
+    
       </div>
     </div>
   );

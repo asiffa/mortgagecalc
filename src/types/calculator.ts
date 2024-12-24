@@ -38,12 +38,14 @@ export interface MortgageCalculatorResults {
   totalPurchaseFees: number;
   totalMonthlyBills: number;
   monthlyDisposableIncome: number;
-  primaryApplicantShare: {
+  primaryApplicantShare: {  
+    monthlySalaryAfterTax: number;
     monthlyPayment: number;
     monthlyBills: number;
     purchaseFees: number;
   };
   secondaryApplicantShare: {
+    monthlySalaryAfterTax: number;
     monthlyPayment: number;
     monthlyBills: number;
     purchaseFees: number;
@@ -55,6 +57,8 @@ export interface MortgageCalculatorInputs {
   currentMortgageRemaining: number;
   primaryApplicant: PersonalFinances;
   secondaryApplicant: PersonalFinances;
+  primaryApplicantSalary: number;
+  secondaryApplicantSalary: number;
   futureHomePrice: number;
   depositPercentage: number;
   primaryMortgage: MortgageDetails;

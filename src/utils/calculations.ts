@@ -1,4 +1,7 @@
 //calculates stamp duty
+
+import { MortgageCalculatorInputs, MortgageCalculatorResults } from "../types/calculator";
+
 //TODO - need to connect this to the main site
 export const calculateStampDuty = (
   price: number,
@@ -7,7 +10,7 @@ export const calculateStampDuty = (
   isNonUKResident: boolean = false
 ): number => {
   let stampDuty = 0;
-  let additionalRate = (isAdditionalProperty ? 0.03 : 0) + (isNonUKResident ? 0.02 : 0);
+  const additionalRate = (isAdditionalProperty ? 0.03 : 0) + (isNonUKResident ? 0.02 : 0);
 
   if (isFirstTimeBuyer && price <= 625000) {
     if (price <= 425000) return 0;
@@ -76,7 +79,6 @@ export const formatCurrency = (value: number): string => {
 export const calculateMortgage = (inputs: MortgageCalculatorInputs): MortgageCalculatorResults => {
   const depositAmount = (inputs.futureHomePrice * inputs.depositPercentage) / 100;
   const totalMortgageRequired = inputs.futureHomePrice - depositAmount;
-  
   const primaryMortgageAmount = inputs.primaryMortgage.amount || totalMortgageRequired;
   const secondaryMortgageAmount = inputs.hasSecondMortgage ? inputs.secondaryMortgage.amount : 0;
   
@@ -141,13 +143,15 @@ export const calculateMortgage = (inputs: MortgageCalculatorInputs): MortgageCal
   const primaryApplicantShare = {
     monthlyPayment: totalMonthlyPayment * primaryRatio,
     monthlyBills: totalMonthlyBills * primaryRatio,
-    purchaseFees: totalPurchaseFees * primaryRatio
+    purchaseFees: totalPurchaseFees * primaryRatio,
+    monthlySalaryAfterTax: inputs.primaryApplicant.monthlySalaryAfterTax
   };
 
   const secondaryApplicantShare = {
     monthlyPayment: totalMonthlyPayment * secondaryRatio,
     monthlyBills: totalMonthlyBills * secondaryRatio,
-    purchaseFees: totalPurchaseFees * secondaryRatio
+    purchaseFees: totalPurchaseFees * secondaryRatio,
+    monthlySalaryAfterTax: inputs.secondaryApplicant?.monthlySalaryAfterTax || 0
   };
 
   return {
