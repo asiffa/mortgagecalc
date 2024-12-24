@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Home } from 'lucide-react';
 import { InputField } from './components/InputField';
 import { MortgageDetails } from './components/MortgageDetails';
@@ -6,7 +6,7 @@ import { ResultCard } from './components/ResultCard';
 import { PurchaseFees } from './components/PurchaseFees';
 import { MonthlyBills } from './components/MonthlyBills';
 import { ContributionSlider } from './components/ContributionSlider';
-import { calculateMortgage, formatCurrency } from './utils/calculations';
+import { calculateMortgage, formatCurrency, calculateStampDuty } from './utils/calculations';
 import type { MortgageCalculatorInputs } from './types/calculator';
 
 function App() {
@@ -51,6 +51,16 @@ function App() {
   });
 
   const results = useMemo(() => calculateMortgage(inputs), [inputs]);
+  
+  useEffect(() => {
+    setInputs(prev => ({
+      ...prev,
+      purchaseFees: {
+        ...prev.purchaseFees,
+        stampDuty: calculateStampDuty(inputs.futureHomePrice)
+      }
+    }));
+  }, [inputs.futureHomePrice]);
 
   const updateInput = (key: keyof MortgageCalculatorInputs, value: any) => {
     setInputs((prev) => ({ ...prev, [key]: value }));
@@ -72,13 +82,13 @@ function App() {
           <div className="bg-white rounded-lg shadow-md p-6">
             <h2 className="text-lg font-semibold text-gray-900 mb-6">Current situation</h2>
             <InputField
-              label="Current House Price"
+              label="Current house price"
               value={inputs.currentHousePrice}
               onChange={(value) => updateInput('currentHousePrice', value)}
               prefix="£"
             />
             <InputField
-              label="Current Mortgage Remaining"
+              label="Current mortgage remaining"
               value={inputs.currentMortgageRemaining}
               onChange={(value) => updateInput('currentMortgageRemaining', value)}
               prefix="£"
@@ -140,13 +150,13 @@ function App() {
           <div className="bg-white rounded-lg shadow-md p-6">
             <h2 className="text-lg font-semibold text-gray-900 mb-6">New home details</h2>
             <InputField
-              label="Future Home Price"
+              label="Future home price"
               value={inputs.futureHomePrice}
               onChange={(value) => updateInput('futureHomePrice', value)}
               prefix="£"
             />
             <InputField
-              label="Deposit Percentage"
+              label="Deposit percentage"
               value={inputs.depositPercentage}
               onChange={(value) => updateInput('depositPercentage', value)}
               suffix="%"
@@ -157,7 +167,7 @@ function App() {
             
             <div className="mt-6 space-y-6">
               <MortgageDetails
-                title="Primary Mortgage"
+                title="Primary mortgage"
                 values={inputs.primaryMortgage}
                 onChange={(values) => updateInput('primaryMortgage', values)}
               />

@@ -1,6 +1,6 @@
 //calculates stamp duty
 //TODO - need to connect this to the main site
-const calculateStampDuty = (
+export const calculateStampDuty = (
   price: number,
   isFirstTimeBuyer: boolean = false,
   isAdditionalProperty: boolean = false,
