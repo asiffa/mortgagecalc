@@ -63,7 +63,7 @@ function App() {
           <Home className="mx-auto h-12 w-12 text-blue-600" />
           <h1 className="mt-4 text-4xl font-bold text-gray-900">Mortgage Calculator</h1>
           <p className="mt-2 text-lg text-gray-600">
-            Calculate your NEW AGAIN!! and see how much you can afford
+            Calculate your mortgage and see how much you can afford
           </p>
         </div>
 
