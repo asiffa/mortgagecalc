@@ -93,7 +93,7 @@ function App() {
     inputs.isNonUKResident
   ]);
 
-  const updateInput = (key: keyof MortgageCalculatorInputs, value: any) => {
+  const updateInput = (key: keyof MortgageCalculatorInputs, value: unknown) => {
     setInputs((prev) => ({ ...prev, [key]: value }));
   };
 
@@ -107,6 +107,17 @@ function App() {
             Calculate your mortgage and see how much you can afford
           </p>
         </div>
+
+        <div className="mt-8 flex gap-4 justify-center">
+  <button
+    onClick={saveState}
+    className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+    Save Configuration
+  </button>
+  <button onClick={loadState} className="bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700">
+    Load Saved Configuration
+  </button>
+</div>
 
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           {/* Current Situation */}
@@ -316,20 +327,7 @@ function App() {
           </div>
         </div>
 
-        <div className="mt-8 flex gap-4 justify-end">
-  <button
-    onClick={saveState}
-    className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
-  >
-    Save Configuration
-  </button>
-  <button
-    onClick={loadState}
-    className="bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700"
-  >
-    Load Saved Configuration
-  </button>
-</div>
+        
 
 
         {/* Results Section */}
