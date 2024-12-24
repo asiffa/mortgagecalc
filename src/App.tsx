@@ -108,15 +108,19 @@ function App() {
           </p>
         </div>
 
-        <div className="mt-8 flex gap-4 justify-center">
-  <button
-    onClick={saveState}
-    className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
-    Save Configuration
-  </button>
-  <button onClick={loadState} className="bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700">
-    Load Saved Configuration
-  </button>
+        <div className="mt-8 flex flex-col items-center gap-4">
+  <div className="mb-4">
+    <button
+      onClick={saveState}
+      className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 mx-2">
+      Save Configuration
+    </button>
+    <button
+      onClick={loadState}
+      className="bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700 mx-2">
+      Load Saved Configuration
+    </button>
+  </div>
 </div>
 
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
@@ -292,18 +296,11 @@ function App() {
                 </p>
               </div>
 </div>
+
+            {/* Monthly Bills */}
+
           <div className="space-y-8">
-            {/* <div className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-6">Purchase fees</h2>
-              
-              
-              <div className="mt-4 pt-4 border-t border-gray-200">
-                <p className="text-sm font-medium text-gray-500">Total purchase fees</p>
-                <p className="text-2xl font-semibold text-gray-900">
-                  {formatCurrency(results.totalPurchaseFees)}
-                </p>
-              </div>
-            </div> */}
+
 
             <div className="bg-white rounded-lg shadow-md p-6">
               <h2 className="text-lg font-semibold text-gray-900 mb-6">Monthly bills</h2>
@@ -328,7 +325,6 @@ function App() {
         </div>
 
         
-
 
         {/* Results Section */}
         <div className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-2">
