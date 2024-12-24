@@ -23,14 +23,14 @@ export const MortgageDetails: React.FC<MortgageDetailsProps> = ({
         prefix="£"
       />
       <InputField
-        label="Interest Rate"
+        label="Interest rate"
         value={values.interestRate}
         onChange={(value) => onChange({ ...values, interestRate: value })}
         suffix="%"
         step={0.1}
       />
       <InputField
-        label="Term Length"
+        label="Term length"
         value={values.termYears}
         onChange={(value) => onChange({ ...values, termYears: value })}
         suffix="years"

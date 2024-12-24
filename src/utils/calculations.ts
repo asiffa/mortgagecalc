@@ -1,3 +1,41 @@
+//calculates stamp duty
+//TODO - need to connect this to the main site
+const calculateStampDuty = (
+  price: number,
+  isFirstTimeBuyer: boolean = false,
+  isAdditionalProperty: boolean = false,
+  isNonUKResident: boolean = false
+): number => {
+  let stampDuty = 0;
+  let additionalRate = (isAdditionalProperty ? 0.03 : 0) + (isNonUKResident ? 0.02 : 0);
+
+  if (isFirstTimeBuyer && price <= 625000) {
+    if (price <= 425000) return 0;
+    stampDuty = (Math.min(price, 625000) - 425000) * 0.05;
+  } else {
+    if (price > 1500000) {
+      stampDuty += (price - 1500000) * (0.12 + additionalRate);
+      price = 1500000;
+    }
+    
+    if (price > 925000) {
+      stampDuty += (price - 925000) * (0.10 + additionalRate);
+      price = 925000;
+    }
+    
+    if (price > 250000) {
+      stampDuty += (price - 250000) * (0.05 + additionalRate);
+      price = 250000;
+    }
+    
+    if (price > 0 && additionalRate > 0) {
+      stampDuty += price * additionalRate;
+    }
+  }
+
+  return Math.round(stampDuty);
+};
+
 // Calculate monthly mortgage payment using the PMT formula
 const calculateMonthlyPayment = (
   principal: number,
