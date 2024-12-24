@@ -28,6 +28,8 @@ function App() {
   const [inputs, setInputs] = useState<MortgageCalculatorInputs>({
     currentHousePrice: 0,
     currentMortgageRemaining: 0,
+    primarySavings: 0,
+    secondarySavings: 0,
     primaryApplicant: {
       savings: 0,
       monthlySalaryAfterTax: 0,
@@ -352,12 +354,20 @@ function App() {
               description="After paying mortgage and bills" 
               />
           <ResultCard
-            label="Primary applicant purchase fees"
+            label="Primary applicant purchase fees (inc. deposit)"
             value={formatCurrency(results.primaryApplicantShare.purchaseFees)}
           />
           <ResultCard
-            label="Secondary applicant purchase fees"
+            label="Secondary applicant purchase fees (inc. deposit)"
             value={formatCurrency(results.secondaryApplicantShare.purchaseFees)}
+          />
+      <ResultCard
+            label="Primary applicant money left after purchase fees"
+            value={formatCurrency(results.primaryApplicantShare.savings - results.primaryApplicantShare.purchaseFees)}
+          />
+               <ResultCard
+            label="Secondary applicant money left after purchase fees"
+            value={formatCurrency(results.secondaryApplicantShare.savings - results.secondaryApplicantShare.purchaseFees)}
           />
           <ResultCard
             label="Total monthly payment"

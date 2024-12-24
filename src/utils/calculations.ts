@@ -143,15 +143,17 @@ export const calculateMortgage = (inputs: MortgageCalculatorInputs): MortgageCal
   const primaryApplicantShare = {
     monthlyPayment: totalMonthlyPayment * primaryRatio,
     monthlyBills: totalMonthlyBills * primaryRatio,
-    purchaseFees: totalPurchaseFees * primaryRatio,
-    monthlySalaryAfterTax: inputs.primaryApplicant.monthlySalaryAfterTax
+    purchaseFees: (totalPurchaseFees + depositAmount) * primaryRatio,
+    monthlySalaryAfterTax: inputs.primaryApplicant.monthlySalaryAfterTax,
+    savings: inputs.primaryApplicant.savings
   };
 
   const secondaryApplicantShare = {
     monthlyPayment: totalMonthlyPayment * secondaryRatio,
     monthlyBills: totalMonthlyBills * secondaryRatio,
-    purchaseFees: totalPurchaseFees * secondaryRatio,
-    monthlySalaryAfterTax: inputs.secondaryApplicant?.monthlySalaryAfterTax || 0
+    purchaseFees: (totalPurchaseFees + depositAmount) * secondaryRatio,
+    monthlySalaryAfterTax: inputs.secondaryApplicant?.monthlySalaryAfterTax || 0,
+    savings: inputs.secondaryApplicant?.savings || 0
   };
 
   return {
