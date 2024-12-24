@@ -187,13 +187,67 @@ function App() {
               
               {inputs.hasSecondMortgage && (
                 <MortgageDetails
-                  title="Secondary Mortgage"
+                  title="Secondary mortgage"
                   values={inputs.secondaryMortgage}
                   onChange={(values) => updateInput('secondaryMortgage', values)}
                 />
               )}
             </div>
           </div>
+          <div className="bg-white rounded-lg shadow-md p-6">
+  <h2 className="text-lg font-semibold text-gray-900 mb-6">Purchase fees</h2>
+  
+  <div className="space-y-2 mb-4">
+    <div className="flex items-center">
+      <input
+        type="checkbox"
+        id="isFirstTimeBuyer"
+        checked={inputs.isFirstTimeBuyer}
+        onChange={(e) => setInputs(prev => ({ ...prev, isFirstTimeBuyer: e.target.checked }))}
+        className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+      />
+      <label htmlFor="isFirstTimeBuyer" className="ml-2 block text-sm text-gray-900">
+        First-time buyer
+      </label>
+    </div>
+
+    <div className="flex items-center">
+      <input
+        type="checkbox"
+        id="isAdditionalProperty"
+        checked={inputs.isAdditionalProperty}
+        onChange={(e) => setInputs(prev => ({ ...prev, isFirstTimeBuyer: e.target.checked }))}
+        className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+      />
+      <label htmlFor="isAdditionalProperty" className="ml-2 block text-sm text-gray-900">
+        Additional property
+      </label>
+    </div>
+
+    <div className="flex items-center">
+      <input
+        type="checkbox"
+        id="isNonUKResident"
+        checked={inputs.isNonUKResident}
+        onChange={(e) => setInputs(prev => ({ ...prev, isFirstTimeBuyer: e.target.checked }))}
+        className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+      />
+      <label htmlFor="isNonUKResident" className="ml-2 block text-sm text-gray-900">
+        Non UK resident
+      </label>
+    </div>
+    {/* Repeat similar blocks for isAdditionalProperty and isNonUKResident */}
+  </div>
+
+
+
+  <PurchaseFees
+    values={inputs.purchaseFees}
+    onChange={(values) => updateInput('purchaseFees', values)}
+  />
+  {/* Rest of the code... */}
+</div>
+
 
           {/* Purchase Fees & Monthly Bills */}
           <div className="space-y-8">
