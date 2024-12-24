@@ -5,6 +5,7 @@ import { MortgageDetails } from './components/MortgageDetails';
 import { ResultCard } from './components/ResultCard';
 import { PurchaseFees } from './components/PurchaseFees';
 import { MonthlyBills } from './components/MonthlyBills';
+import { ContributionSlider } from './components/ContributionSlider';
 import { calculateMortgage, formatCurrency } from './utils/calculations';
 import type { MortgageCalculatorInputs } from './types/calculator';
 
@@ -14,11 +15,13 @@ function App() {
     currentMortgageRemaining: 0,
     primaryApplicant: {
       savings: 0,
-      monthlySalaryAfterTax: 0
+      monthlySalaryAfterTax: 0,
+      contributionRatio: 50
     },
     secondaryApplicant: {
       savings: 0,
-      monthlySalaryAfterTax: 0
+      monthlySalaryAfterTax: 0,
+      contributionRatio: 50
     },
     futureHomePrice: 0,
     depositPercentage: 20,
@@ -112,6 +115,25 @@ function App() {
                 prefix="£"
               />
             </div>
+
+            <div className="mt-6">
+              <ContributionSlider
+                primaryRatio={inputs.primaryApplicant.contributionRatio}
+                onChange={(ratio) => {
+                  setInputs((prev) => ({
+                    ...prev,
+                    primaryApplicant: {
+                      ...prev.primaryApplicant,
+                      contributionRatio: ratio
+                    },
+                    secondaryApplicant: {
+                      ...prev.secondaryApplicant!,
+                      contributionRatio: 100 - ratio
+                    }
+                  }));
+                }}
+              />
+            </div>
           </div>
 
           {/* New Home Details */}
@@ -199,58 +221,45 @@ function App() {
               </div>
             </div>
           </div>
+        </div>
 
-          {/* Results */}
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-6">Results</h2>
-            <div className="space-y-6">
-              <ResultCard
-                label="Required Deposit"
-                value={formatCurrency(results.depositAmount)}
-              />
-              <ResultCard
-                label="Total Mortgage Required"
-                value={formatCurrency(results.totalMortgageRequired)}
-              />
-              <ResultCard
-                label="Primary Mortgage Amount"
-                value={formatCurrency(results.primaryMortgageAmount)}
-              />
-              {inputs.hasSecondMortgage && (
-                <ResultCard
-                  label="Secondary Mortgage Amount"
-                  value={formatCurrency(results.secondaryMortgageAmount)}
-                />
-              )}
-              <ResultCard
-                label="Primary Monthly Payment"
-                value={formatCurrency(results.primaryMonthlyPayment)}
-              />
-              {inputs.hasSecondMortgage && (
-                <ResultCard
-                  label="Secondary Monthly Payment"
-                  value={formatCurrency(results.secondaryMonthlyPayment)}
-                />
-              )}
-              <ResultCard
-                label="Total Monthly Payment"
-                value={formatCurrency(results.totalMonthlyPayment)}
-              />
-              <ResultCard
-                label="Cash After Current House Sale"
-                value={formatCurrency(results.cashAfterRedemption)}
-              />
-              <ResultCard
-                label="Total Available Cash"
-                value={formatCurrency(results.totalAvailableCash)}
-              />
-              {/* <ResultCard
-                label="Total Interest Paid"
-                value={formatCurrency(results.totalInterestPaid)}
-                description="Over the full mortgage terms"
-              /> */}
-            </div>
-          </div>
+        {/* Results Section */}
+        <div className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-2">
+          <ResultCard
+            label="Required Deposit"
+            value={formatCurrency(results.depositAmount)}
+          />
+          <ResultCard
+            label="Total Mortgage Required"
+            value={formatCurrency(results.totalMortgageRequired)}
+          />
+          <ResultCard
+            label="Primary Monthly Share"
+            value={formatCurrency(results.primaryApplicantShare.monthlyPayment + results.primaryApplicantShare.monthlyBills)}
+            description="Including mortgage and bills"
+          />
+          <ResultCard
+            label="Secondary Monthly Share"
+            value={formatCurrency(results.secondaryApplicantShare.monthlyPayment + results.secondaryApplicantShare.monthlyBills)}
+            description="Including mortgage and bills"
+          />
+          <ResultCard
+            label="Primary Applicant Purchase Fees"
+            value={formatCurrency(results.primaryApplicantShare.purchaseFees)}
+          />
+          <ResultCard
+            label="Secondary Applicant Purchase Fees"
+            value={formatCurrency(results.secondaryApplicantShare.purchaseFees)}
+          />
+          <ResultCard
+            label="Total Monthly Payment"
+            value={formatCurrency(results.totalMonthlyPayment)}
+          />
+          <ResultCard
+            label="Total Interest Paid"
+            value={formatCurrency(results.totalInterestPaid)}
+            description="Over the full mortgage terms"
+          />
         </div>
       </div>
     </div>

@@ -1,40 +1,7 @@
 export interface PersonalFinances {
   savings: number;
   monthlySalaryAfterTax: number;
-}
-
-export interface MortgageDetails {
-  amount: number;
-  interestRate: number;
-  termYears: number;
-}
-
-export interface PurchaseFees {
-  solicitorCost: number;
-  stampDuty: number;
-  estateAgentFees: number;
-}
-
-export interface MonthlyBills {
-  councilTax: number;
-  utilities: number;
-  insurance: number;
-  maintenance: number;
-  other: number;
-}
-
-export interface MortgageCalculatorInputs {
-  currentHousePrice: number;
-  currentMortgageRemaining: number;
-  primaryApplicant: PersonalFinances;
-  secondaryApplicant?: PersonalFinances;
-  futureHomePrice: number;
-  depositPercentage: number;
-  primaryMortgage: MortgageDetails;
-  hasSecondMortgage: boolean;
-  secondaryMortgage: MortgageDetails;
-  purchaseFees: PurchaseFees;
-  monthlyBills: MonthlyBills;
+  contributionRatio: number; // New field
 }
 
 export interface MortgageCalculatorResults {
@@ -51,4 +18,15 @@ export interface MortgageCalculatorResults {
   totalPurchaseFees: number;
   totalMonthlyBills: number;
   monthlyDisposableIncome: number;
+  // New fields for split costs
+  primaryApplicantShare: {
+    monthlyPayment: number;
+    monthlyBills: number;
+    purchaseFees: number;
+  };
+  secondaryApplicantShare: {
+    monthlyPayment: number;
+    monthlyBills: number;
+    purchaseFees: number;
+  };
 }

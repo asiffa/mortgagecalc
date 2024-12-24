@@ -26,6 +26,15 @@ const calculateTotalInterest = (
   return totalPayments - principal;
 };
 
+export const formatCurrency = (value: number): string => {
+  return new Intl.NumberFormat('en-GB', {
+    style: 'currency',
+    currency: 'GBP',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(value);
+};
+
 export const calculateMortgage = (inputs: MortgageCalculatorInputs): MortgageCalculatorResults => {
   const depositAmount = (inputs.futureHomePrice * inputs.depositPercentage) / 100;
   const totalMortgageRequired = inputs.futureHomePrice - depositAmount;
@@ -87,6 +96,22 @@ export const calculateMortgage = (inputs: MortgageCalculatorInputs): MortgageCal
   const monthlyDisposableIncome = 
     totalMonthlySalary - totalMonthlyPayment - totalMonthlyBills;
 
+  const primaryRatio = inputs.primaryApplicant.contributionRatio / 100;
+  const secondaryRatio = 1 - primaryRatio;
+
+  // Calculate shares for each applicant
+  const primaryApplicantShare = {
+    monthlyPayment: totalMonthlyPayment * primaryRatio,
+    monthlyBills: totalMonthlyBills * primaryRatio,
+    purchaseFees: totalPurchaseFees * primaryRatio
+  };
+
+  const secondaryApplicantShare = {
+    monthlyPayment: totalMonthlyPayment * secondaryRatio,
+    monthlyBills: totalMonthlyBills * secondaryRatio,
+    purchaseFees: totalPurchaseFees * secondaryRatio
+  };
+
   return {
     depositAmount,
     totalMortgageRequired,
@@ -101,14 +126,7 @@ export const calculateMortgage = (inputs: MortgageCalculatorInputs): MortgageCal
     totalPurchaseFees,
     totalMonthlyBills,
     monthlyDisposableIncome,
+    primaryApplicantShare,
+    secondaryApplicantShare,
   };
-};
-
-export const formatCurrency = (value: number): string => {
-  return new Intl.NumberFormat('en-GB', {
-    style: 'currency',
-    currency: 'GBP',
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(value);
 };
