@@ -62,4 +62,7 @@ export interface MortgageCalculatorInputs {
   secondaryMortgage: MortgageDetails;
   purchaseFees: PurchaseFees;
   monthlyBills: MonthlyBills;
+  isFirstTimeBuyer: boolean;
+  isAdditionalProperty: boolean;
+  isNonUKResident: boolean;
 }

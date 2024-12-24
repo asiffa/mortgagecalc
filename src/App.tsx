@@ -48,6 +48,9 @@ function App() {
       maintenance: 0,
       other: 0
     }
+  ,isFirstTimeBuyer: false,
+  isAdditionalProperty: false,
+  isNonUKResident: false
   });
 
   const results = useMemo(() => calculateMortgage(inputs), [inputs]);
@@ -57,10 +60,20 @@ function App() {
       ...prev,
       purchaseFees: {
         ...prev.purchaseFees,
-        stampDuty: calculateStampDuty(inputs.futureHomePrice)
+        stampDuty: calculateStampDuty(
+          inputs.futureHomePrice,
+          inputs.isFirstTimeBuyer,
+          inputs.isAdditionalProperty,
+          inputs.isNonUKResident
+        )
       }
     }));
-  }, [inputs.futureHomePrice]);
+  }, [
+    inputs.futureHomePrice, 
+    inputs.isFirstTimeBuyer, 
+    inputs.isAdditionalProperty, 
+    inputs.isNonUKResident
+  ]);
 
   const updateInput = (key: keyof MortgageCalculatorInputs, value: any) => {
     setInputs((prev) => ({ ...prev, [key]: value }));
@@ -216,7 +229,7 @@ function App() {
         type="checkbox"
         id="isAdditionalProperty"
         checked={inputs.isAdditionalProperty}
-        onChange={(e) => setInputs(prev => ({ ...prev, isFirstTimeBuyer: e.target.checked }))}
+        onChange={(e) => setInputs(prev => ({ ...prev, isAdditionalProperty: e.target.checked }))}
         className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
       />
       <label htmlFor="isAdditionalProperty" className="ml-2 block text-sm text-gray-900">
@@ -229,7 +242,7 @@ function App() {
         type="checkbox"
         id="isNonUKResident"
         checked={inputs.isNonUKResident}
-        onChange={(e) => setInputs(prev => ({ ...prev, isFirstTimeBuyer: e.target.checked }))}
+        onChange={(e) => setInputs(prev => ({ ...prev, isNonUKResident: e.target.checked }))}
         className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
       />
       <label htmlFor="isNonUKResident" className="ml-2 block text-sm text-gray-900">
