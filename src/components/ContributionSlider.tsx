@@ -13,7 +13,7 @@ export const ContributionSlider: React.FC<ContributionSliderProps> = ({
     <div className="space-y-4">
       <h3 className="text-md font-medium text-gray-700">Contribution split</h3>
       <div className="flex items-center space-x-4">
-        <span className="text-sm text-gray-600 w-24">Primary: {primaryRatio}%</span>
+        <span className="text-sm text-gray-600 w-24">1: {primaryRatio}%</span>
         <input
           type="range"
           min="0"
@@ -22,7 +22,7 @@ export const ContributionSlider: React.FC<ContributionSliderProps> = ({
           onChange={(e) => onChange(Number(e.target.value))}
           className="flex-grow h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
         />
-        <span className="text-sm text-gray-600 w-24">Secondary: {100 - primaryRatio}%</span>
+        <span className="text-sm text-gray-600 w-24">2: {100 - primaryRatio}%</span>
       </div>  
     </div>
   );

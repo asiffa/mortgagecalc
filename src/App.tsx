@@ -9,9 +9,6 @@ import { ContributionSlider } from './components/ContributionSlider';
 import { calculateMortgage, formatCurrency, calculateStampDuty } from './utils/calculations';
 import type { MortgageCalculatorInputs } from './types/calculator';
 
-
-
-
 function App() {
 
   const STORAGE_KEY = 'mortgageCalculatorState';
@@ -123,7 +120,7 @@ function App() {
   </div>
 </div>
 
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-4">
           {/* Current Situation */}
           <div className="bg-white rounded-lg shadow-md p-6">
             <h2 className="text-lg font-semibold text-gray-900 mb-6">Current situation</h2>
@@ -172,7 +169,7 @@ function App() {
               />
             </div>
 
-            <div className="mt-6">
+            <div className="mt-6 overflow-hidden">
               <ContributionSlider
                 primaryRatio={inputs.primaryApplicant.contributionRatio}
                 onChange={(ratio) => {
@@ -298,10 +295,7 @@ function App() {
 </div>
 
             {/* Monthly Bills */}
-
           <div className="space-y-8">
-
-
             <div className="bg-white rounded-lg shadow-md p-6">
               <h2 className="text-lg font-semibold text-gray-900 mb-6">Monthly bills</h2>
               <MonthlyBills
@@ -323,8 +317,6 @@ function App() {
             </div>
           </div>
         </div>
-
-        
 
         {/* Results Section */}
         <div className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-2">
