@@ -11,7 +11,7 @@ export const MonthlyBills: React.FC<MonthlyBillsProps> = ({ values, onChange }) 
   return (
     <div className="space-y-4">
       <InputField
-        label="Council Tax"
+        label="Council tax"
         value={values.councilTax}
         onChange={(value) => onChange({ ...values, councilTax: value })}
         prefix="£"
@@ -35,7 +35,7 @@ export const MonthlyBills: React.FC<MonthlyBillsProps> = ({ values, onChange }) 
         prefix="£"
       />
       <InputField
-        label="Other Bills"
+        label="Other bills"
         value={values.other}
         onChange={(value) => onChange({ ...values, other: value })}
         prefix="£"

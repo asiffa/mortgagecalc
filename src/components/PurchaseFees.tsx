@@ -11,19 +11,19 @@ export const PurchaseFees: React.FC<PurchaseFeesProps> = ({ values, onChange }) 
   return (
     <div className="space-y-4">
       <InputField
-        label="Solicitor Cost"
+        label="Solicitor cost"
         value={values.solicitorCost}
         onChange={(value) => onChange({ ...values, solicitorCost: value })}
         prefix="£"
       />
       <InputField
-        label="Stamp Duty"
+        label="Stamp duty"
         value={values.stampDuty}
         onChange={(value) => onChange({ ...values, stampDuty: value })}
         prefix="£"
       />
       <InputField
-        label="Estate Agent Fees"
+        label="Estate agent fees"
         value={values.estateAgentFees}
         onChange={(value) => onChange({ ...values, estateAgentFees: value })}
         prefix="£"

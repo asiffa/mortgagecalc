@@ -11,7 +11,7 @@ export const ContributionSlider: React.FC<ContributionSliderProps> = ({
 }) => {
   return (
     <div className="space-y-4">
-      <h3 className="text-md font-medium text-gray-700">Contribution Split</h3>
+      <h3 className="text-md font-medium text-gray-700">Contribution split</h3>
       <div className="flex items-center space-x-4">
         <span className="text-sm text-gray-600 w-24">Primary: {primaryRatio}%</span>
         <input
@@ -23,7 +23,7 @@ export const ContributionSlider: React.FC<ContributionSliderProps> = ({
           className="flex-grow h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
         />
         <span className="text-sm text-gray-600 w-24">Secondary: {100 - primaryRatio}%</span>
-      </div>
+      </div>  
     </div>
   );
 };

@@ -70,7 +70,7 @@ function App() {
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           {/* Current Situation */}
           <div className="bg-white rounded-lg shadow-md p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-6">Current Situation</h2>
+            <h2 className="text-lg font-semibold text-gray-900 mb-6">Current situation</h2>
             <InputField
               label="Current House Price"
               value={inputs.currentHousePrice}
@@ -85,15 +85,15 @@ function App() {
             />
             
             <div className="mt-6">
-              <h3 className="text-md font-medium text-gray-700 mb-4">Primary Applicant</h3>
+              <h3 className="text-md font-medium text-gray-700 mb-4">Primary applicant</h3>
               <InputField
-                label="Current Savings"
+                label="Current savings"
                 value={inputs.primaryApplicant.savings}
                 onChange={(value) => updateInput('primaryApplicant', { ...inputs.primaryApplicant, savings: value })}
                 prefix="£"
               />
               <InputField
-                label="Monthly Salary (After Tax)"
+                label="Monthly salary (after tax)"
                 value={inputs.primaryApplicant.monthlySalaryAfterTax}
                 onChange={(value) => updateInput('primaryApplicant', { ...inputs.primaryApplicant, monthlySalaryAfterTax: value })}
                 prefix="£"
@@ -101,15 +101,15 @@ function App() {
             </div>
 
             <div className="mt-6">
-              <h3 className="text-md font-medium text-gray-700 mb-4">Secondary Applicant</h3>
+              <h3 className="text-md font-medium text-gray-700 mb-4">Secondary applicant</h3>
               <InputField
-                label="Current Savings"
+                label="Current savings"
                 value={inputs.secondaryApplicant.savings}
                 onChange={(value) => updateInput('secondaryApplicant', { ...inputs.secondaryApplicant, savings: value })}
                 prefix="£"
               />
               <InputField
-                label="Monthly Salary (After Tax)"
+                label="Monthly salary (after tax)"
                 value={inputs.secondaryApplicant.monthlySalaryAfterTax}
                 onChange={(value) => updateInput('secondaryApplicant', { ...inputs.secondaryApplicant, monthlySalaryAfterTax: value })}
                 prefix="£"
@@ -138,7 +138,7 @@ function App() {
 
           {/* New Home Details */}
           <div className="bg-white rounded-lg shadow-md p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-6">New Home Details</h2>
+            <h2 className="text-lg font-semibold text-gray-900 mb-6">New home details</h2>
             <InputField
               label="Future Home Price"
               value={inputs.futureHomePrice}
@@ -171,7 +171,7 @@ function App() {
                   className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
                 />
                 <label htmlFor="hasSecondMortgage" className="ml-2 block text-sm text-gray-900">
-                  Include Second Mortgage
+                  Include second mortgage
                 </label>
               </div>
               
@@ -188,13 +188,13 @@ function App() {
           {/* Purchase Fees & Monthly Bills */}
           <div className="space-y-8">
             <div className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-6">Purchase Fees</h2>
+              <h2 className="text-lg font-semibold text-gray-900 mb-6">Purchase fees</h2>
               <PurchaseFees
                 values={inputs.purchaseFees}
                 onChange={(values) => updateInput('purchaseFees', values)}
               />
               <div className="mt-4 pt-4 border-t border-gray-200">
-                <p className="text-sm font-medium text-gray-500">Total Purchase Fees</p>
+                <p className="text-sm font-medium text-gray-500">Total purchase fees</p>
                 <p className="text-2xl font-semibold text-gray-900">
                   {formatCurrency(results.totalPurchaseFees)}
                 </p>
@@ -202,19 +202,19 @@ function App() {
             </div>
 
             <div className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-6">Monthly Bills</h2>
+              <h2 className="text-lg font-semibold text-gray-900 mb-6">Monthly bills</h2>
               <MonthlyBills
                 values={inputs.monthlyBills}
                 onChange={(values) => updateInput('monthlyBills', values)}
               />
               <div className="mt-4 pt-4 border-t border-gray-200">
-                <p className="text-sm font-medium text-gray-500">Total Monthly Bills</p>
+                <p className="text-sm font-medium text-gray-500">Total monthly bills</p>
                 <p className="text-2xl font-semibold text-gray-900">
                   {formatCurrency(results.totalMonthlyBills)}
                 </p>
               </div>
               <div className="mt-4 pt-4 border-t border-gray-200">
-                <p className="text-sm font-medium text-gray-500">Monthly Disposable Income</p>
+                <p className="text-sm font-medium text-gray-500">Monthly disposable income</p>
                 <p className="text-2xl font-semibold text-gray-900">
                   {formatCurrency(results.monthlyDisposableIncome)}
                 </p>
@@ -226,37 +226,37 @@ function App() {
         {/* Results Section */}
         <div className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-2">
           <ResultCard
-            label="Required Deposit"
+            label="Required deposit"
             value={formatCurrency(results.depositAmount)}
           />
           <ResultCard
-            label="Total Mortgage Required"
+            label="Total mortgage required"
             value={formatCurrency(results.totalMortgageRequired)}
           />
           <ResultCard
-            label="Primary Monthly Share"
+            label="Primary monthly share"
             value={formatCurrency(results.primaryApplicantShare.monthlyPayment + results.primaryApplicantShare.monthlyBills)}
             description="Including mortgage and bills"
           />
           <ResultCard
-            label="Secondary Monthly Share"
+            label="Secondary monthly share"
             value={formatCurrency(results.secondaryApplicantShare.monthlyPayment + results.secondaryApplicantShare.monthlyBills)}
             description="Including mortgage and bills"
           />
           <ResultCard
-            label="Primary Applicant Purchase Fees"
+            label="Primary applicant purchase fees"
             value={formatCurrency(results.primaryApplicantShare.purchaseFees)}
           />
           <ResultCard
-            label="Secondary Applicant Purchase Fees"
+            label="Secondary applicant purchase fees"
             value={formatCurrency(results.secondaryApplicantShare.purchaseFees)}
           />
           <ResultCard
-            label="Total Monthly Payment"
+            label="Total monthly payment"
             value={formatCurrency(results.totalMonthlyPayment)}
           />
           <ResultCard
-            label="Total Interest Paid"
+            label="Total interest paid"
             value={formatCurrency(results.totalInterestPaid)}
             description="Over the full mortgage terms"
           />
