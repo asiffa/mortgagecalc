@@ -105,7 +105,7 @@ function App() {
           </p>
         </div>
 
-        <div className="mt-8 flex flex-col items-center gap-4">
+        <div className="mb-4 flex flex-col items-center gap-4">
   <div className="mb-4">
     <button
       onClick={saveState}

@@ -40,6 +40,12 @@ export const MonthlyBills: React.FC<MonthlyBillsProps> = ({ values, onChange }) 
         onChange={(value) => onChange({ ...values, other: value })}
         prefix="£"
       />
+      <InputField
+        label="Food"
+        value={values.councilTax}
+        onChange={(value) => onChange({ ...values, councilTax: value })}
+        prefix="£"
+      />
     </div>
   );
 };
