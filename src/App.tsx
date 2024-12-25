@@ -384,12 +384,12 @@ const loadState = () => {
             description="Including mortgage and bills"
           />
           <ResultCard
-            label="Applicant #1 money left after mortgage and bills"
+            label="Applicant #1 salary leftover after mortgage and bills"
             value={formatCurrency(results.primaryApplicantShare.monthlySalaryAfterTax - results.primaryApplicantShare.monthlyBills - results.primaryApplicantShare.monthlyPayment)}
             description="After paying mortgage and bills" 
           />
           <ResultCard
-            label="Applicant #2 money left after mortgage and bills"
+            label="Applicant #2 salary leftover after mortgage and bills"
             value={formatCurrency(results.secondaryApplicantShare.monthlySalaryAfterTax - results.secondaryApplicantShare.monthlyBills - results.secondaryApplicantShare.monthlyPayment)}
             description="After paying mortgage and bills" 
           />
@@ -402,11 +402,11 @@ const loadState = () => {
             value={formatCurrency(results.secondaryApplicantShare.purchaseFees)}
           />
           <ResultCard
-            label="Applicant #1 money left after purchase fees"
+            label="Applicant #1 savings leftover after purchase fees"
             value={formatCurrency(results.primaryApplicantShare.savings - results.primaryApplicantShare.purchaseFees + (inputs.primaryOwnsCurrentProperty ? inputs.redemptionAmount : 0))}
           />
           <ResultCard
-            label="Applicant #2 money left after purchase fees"
+            label="Applicant #2 savings leftover after purchase fees"
             value={formatCurrency(results.secondaryApplicantShare.savings - results.secondaryApplicantShare.purchaseFees)}
           />
           <ResultCard
