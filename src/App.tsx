@@ -50,8 +50,8 @@ function App() {
     hasSecondMortgage: false,
     secondaryMortgage: {
       amount: 0,
-      interestRate: 4.5,
-      termYears: 15,
+      interestRate: 0 ,
+      termYears: 0,
     },
     purchaseFees: {
       solicitorCost: 0,
@@ -70,7 +70,8 @@ function App() {
   secondaryApplicantSalary: 0,
   isFirstTimeBuyer: false,
   isAdditionalProperty: false,
-  isNonUKResident: false
+  isNonUKResident: false,
+  redemptionAmount: 0
   });
 
   const results = useMemo(() => calculateMortgage(inputs), [inputs]);
@@ -130,7 +131,7 @@ function App() {
           <div className="bg-white rounded-lg shadow-md p-6">
             <h2 className="text-lg font-semibold text-gray-900 mb-6">Current situation</h2>
             <InputField
-              label="Current house price"
+              label="Current house value"
               value={inputs.currentHousePrice}
               onChange={(value) => updateInput('currentHousePrice', value)}
               prefix="£"
@@ -141,9 +142,15 @@ function App() {
               onChange={(value) => updateInput('currentMortgageRemaining', value)}
               prefix="£"
             />
+            <InputField
+              label="Redemption amount"
+              value={inputs.currentHousePrice - inputs.currentMortgageRemaining}
+              onChange={(value) => updateInput('redemptionAmount', value)}
+              prefix="£"
+            />
             
             <div className="mt-6">
-              <h3 className="text-md font-medium text-gray-700 mb-4">Primary applicant</h3>
+              <h3 className="text-md font-medium text-gray-700 mb-4">Applicant #1</h3>
               <InputField
                 label="Current savings"
                 value={inputs.primaryApplicant.savings}
@@ -159,7 +166,7 @@ function App() {
             </div>
 
             <div className="mt-6">
-              <h3 className="text-md font-medium text-gray-700 mb-4">Secondary applicant</h3>
+              <h3 className="text-md font-medium text-gray-700 mb-4">Applicant #2</h3>
               <InputField
                 label="Current savings"
                 value={inputs.secondaryApplicant.savings}
@@ -287,12 +294,13 @@ function App() {
     
   </div>
 
+{/* Purchase Fees */}
   <PurchaseFees
     values={inputs.purchaseFees}
     onChange={(values) => updateInput('purchaseFees', values)}
   />
   <div className="mt-4 pt-4 border-t border-gray-200">
-                <p className="text-sm font-medium text-gray-500">Total purchase fees</p>
+                <p className="text-sm font-medium text-gray-500">Total purchase fees (exc. deposit)</p>
                 <p className="text-2xl font-semibold text-gray-900">
                   {formatCurrency(results.totalPurchaseFees)}
                 </p>
@@ -314,7 +322,7 @@ function App() {
                 </p>
               </div>
               <div className="mt-4 pt-4 border-t border-gray-200">
-                <p className="text-sm font-medium text-gray-500">Monthly disposable income</p>
+                <p className="text-sm font-medium text-gray-500">Monthly disposable income (after mortgage and bills)</p>
                 <p className="text-2xl font-semibold text-gray-900">
                   {formatCurrency(results.monthlyDisposableIncome)}
                 </p>
@@ -370,11 +378,11 @@ function App() {
             value={formatCurrency(results.secondaryApplicantShare.savings - results.secondaryApplicantShare.purchaseFees)}
           />
           <ResultCard
-            label="Total monthly payment"
+            label="Total monthly mortgage"
             value={formatCurrency(results.totalMonthlyPayment)}
           />
           <ResultCard
-            label="Total interest paid"
+            label="Total interest paid on mortgage"
             value={formatCurrency(results.totalInterestPaid)}
             description="Over the full mortgage terms"
           />

@@ -57,6 +57,7 @@ export interface MortgageCalculatorResults {
 export interface MortgageCalculatorInputs {
   currentHousePrice: number;
   currentMortgageRemaining: number;
+  redemptionAmount: number;
   primaryApplicant: PersonalFinances;
   secondaryApplicant: PersonalFinances;
   primaryApplicantSalary: number;

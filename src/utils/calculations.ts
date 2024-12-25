@@ -2,7 +2,6 @@
 
 import { MortgageCalculatorInputs, MortgageCalculatorResults } from "../types/calculator";
 
-//TODO - need to connect this to the main site
 export const calculateStampDuty = (
   price: number,
   isFirstTimeBuyer: boolean = false,
@@ -38,6 +37,10 @@ export const calculateStampDuty = (
 
   return Math.round(stampDuty);
 };
+
+export const redemptionAmount = (currentHousePrice: number, currentMortgageRemaining: number): number => {
+  return currentHousePrice - currentMortgageRemaining;
+}
 
 // Calculate monthly mortgage payment using the PMT formula
 const calculateMonthlyPayment = (
