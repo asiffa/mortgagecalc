@@ -17,7 +17,7 @@ export const InputField: React.FC<InputFieldProps> = ({
   onChange,
   prefix,
   suffix,
-  min = 0,
+  min,
   max,
   step = 1,
 }) => {

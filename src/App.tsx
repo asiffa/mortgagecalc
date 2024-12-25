@@ -11,21 +11,23 @@ import type { MortgageCalculatorInputs } from './types/calculator';
 
 function App() {
 
-  const STORAGE_KEY = 'mortgageCalculatorState';
+const STORAGE_KEY = 'mortgageCalculatorState';
 
-  const saveState = () => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(inputs));
-  };
-  
-  const loadState = () => {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved) {
-      setInputs(JSON.parse(saved));
-    }
-  };
+const saveState = () => {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(inputs));
+};
+
+const loadState = () => {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (saved) {
+    setInputs(JSON.parse(saved));
+  }
+};
   
 
   const [inputs, setInputs] = useState<MortgageCalculatorInputs>({
+    ownedFees: 0,
+    redemptionAmount: 0,
     currentHousePrice: 0,
     currentMortgageRemaining: 0,
     primarySavings: 0,
@@ -33,12 +35,12 @@ function App() {
     primaryApplicant: {
       savings: 0,
       monthlySalaryAfterTax: 0,
-      contributionRatio: 50
+      contributionRatio: 50,
     },
     secondaryApplicant: {
       savings: 0,
       monthlySalaryAfterTax: 0,
-      contributionRatio: 50
+      contributionRatio: 50,
     },
     futureHomePrice: 0,
     depositPercentage: 20,
@@ -71,7 +73,7 @@ function App() {
   isFirstTimeBuyer: false,
   isAdditionalProperty: false,
   isNonUKResident: false,
-  redemptionAmount: 0
+  primaryOwnsCurrentProperty: false
   });
 
   const results = useMemo(() => calculateMortgage(inputs), [inputs]);
@@ -87,13 +89,17 @@ function App() {
           inputs.isAdditionalProperty,
           inputs.isNonUKResident
         )
-      }
+      },
+      redemptionAmount: prev.currentHousePrice - prev.currentMortgageRemaining
     }));
   }, [
     inputs.futureHomePrice, 
     inputs.isFirstTimeBuyer, 
     inputs.isAdditionalProperty, 
-    inputs.isNonUKResident
+    inputs.isNonUKResident,
+    inputs.primaryOwnsCurrentProperty,
+    inputs.currentHousePrice,
+    inputs.currentMortgageRemaining
   ]);
 
   const updateInput = (key: keyof MortgageCalculatorInputs, value: unknown) => {
@@ -126,29 +132,45 @@ function App() {
   </div>
 </div>
 
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-4">
-          {/* Current Situation */}
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-6">Current situation</h2>
-            <InputField
-              label="Current house value"
-              value={inputs.currentHousePrice}
-              onChange={(value) => updateInput('currentHousePrice', value)}
-              prefix="£"
-            />
-            <InputField
-              label="Current mortgage remaining"
-              value={inputs.currentMortgageRemaining}
-              onChange={(value) => updateInput('currentMortgageRemaining', value)}
-              prefix="£"
-            />
-            <InputField
-              label="Redemption amount"
-              value={inputs.currentHousePrice - inputs.currentMortgageRemaining}
-              onChange={(value) => updateInput('redemptionAmount', value)}
-              prefix="£"
-            />
-            
+
+  <div className="grid grid-cols-1 gap-8 lg:grid-cols-4">
+    {/* Current Situation */}
+    <div className="bg-white rounded-lg shadow-md p-6">
+      <h2 className="text-lg font-semibold text-gray-900 mb-6">Current situation</h2>
+      <InputField
+        label="Current house value"
+        value={inputs.currentHousePrice}
+        onChange={(value) => setInputs(prev => ({ ...prev, currentHousePrice: value }))}
+        prefix="£"
+      />
+      <InputField
+        label="Current mortgage remaining"
+        value={inputs.currentMortgageRemaining}
+        onChange={(value) => setInputs(prev => ({ ...prev, currentMortgageRemaining: value }))}
+        prefix="£"
+      />
+      <InputField
+        label="Redemption amount"
+        value={inputs.currentHousePrice - inputs.currentMortgageRemaining}
+        onChange={(value) => setInputs(prev => ({ ...prev, redemptionAmount: value }))}
+        prefix="£"
+      />
+
+      <div className="flex items-center">
+    <input
+    type="checkbox"
+    id="primaryOwnsCurrentProperty"
+    checked={inputs.primaryOwnsCurrentProperty}
+    onChange={(e) => setInputs(prev => ({ ...prev, primaryOwnsCurrentProperty: e.target.checked }))}
+    className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+    />
+    <label htmlFor="primaryOwnsCurrentProperty" className="ml-2 block text-sm text-gray-900">
+    Primary owns home
+    </label>
+  </div>
+
+
+    
             <div className="mt-6">
               <h3 className="text-md font-medium text-gray-700 mb-4">Applicant #1</h3>
               <InputField
@@ -360,16 +382,16 @@ function App() {
             value={formatCurrency(results.secondaryApplicantShare.monthlyPayment + results.secondaryApplicantShare.monthlyBills)}
             description="Including mortgage and bills"
           />
-              <ResultCard
-              label="Applicant #1 money left after mortgage and bills"
-              value={formatCurrency(results.primaryApplicantShare.monthlySalaryAfterTax - results.primaryApplicantShare.monthlyBills - results.primaryApplicantShare.monthlyPayment)}
-              description="After paying mortgage and bills" 
-              />
-               <ResultCard
-              label="Applicant #2 money left after mortgage and bills"
-              value={formatCurrency(results.secondaryApplicantShare.monthlySalaryAfterTax - results.secondaryApplicantShare.monthlyBills - results.secondaryApplicantShare.monthlyPayment)}
-              description="After paying mortgage and bills" 
-              />
+          <ResultCard
+            label="Applicant #1 money left after mortgage and bills"
+            value={formatCurrency(results.primaryApplicantShare.monthlySalaryAfterTax - results.primaryApplicantShare.monthlyBills - results.primaryApplicantShare.monthlyPayment)}
+            description="After paying mortgage and bills" 
+          />
+          <ResultCard
+            label="Applicant #2 money left after mortgage and bills"
+            value={formatCurrency(results.secondaryApplicantShare.monthlySalaryAfterTax - results.secondaryApplicantShare.monthlyBills - results.secondaryApplicantShare.monthlyPayment)}
+            description="After paying mortgage and bills" 
+          />
           <ResultCard
             label="Applicant #1 purchase fees (inc. deposit)"
             value={formatCurrency(results.primaryApplicantShare.purchaseFees)}
@@ -378,11 +400,11 @@ function App() {
             label="Applicant #2 purchase fees (inc. deposit)"
             value={formatCurrency(results.secondaryApplicantShare.purchaseFees)}
           />
-      <ResultCard
+          <ResultCard
             label="Applicant #1 money left after purchase fees"
-            value={formatCurrency(results.primaryApplicantShare.savings - results.primaryApplicantShare.purchaseFees)}
+            value={formatCurrency(results.primaryApplicantShare.savings - results.primaryApplicantShare.purchaseFees + (inputs.primaryOwnsCurrentProperty ? inputs.redemptionAmount : 0))}
           />
-               <ResultCard
+          <ResultCard
             label="Applicant #2 money left after purchase fees"
             value={formatCurrency(results.secondaryApplicantShare.savings - results.secondaryApplicantShare.purchaseFees)}
           />

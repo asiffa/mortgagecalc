@@ -39,6 +39,7 @@ export interface MortgageCalculatorResults {
   totalMonthlyBills: number;
   monthlyDisposableIncome: number;
   primaryApplicantShare: {  
+    ownedFees: number;
     savings: number;
     monthlySalaryAfterTax: number;
     monthlyPayment: number;
@@ -58,6 +59,7 @@ export interface MortgageCalculatorInputs {
   currentHousePrice: number;
   currentMortgageRemaining: number;
   redemptionAmount: number;
+  primaryOwnsCurrentProperty: boolean;
   primaryApplicant: PersonalFinances;
   secondaryApplicant: PersonalFinances;
   primaryApplicantSalary: number;
@@ -70,6 +72,7 @@ export interface MortgageCalculatorInputs {
   hasSecondMortgage: boolean;
   secondaryMortgage: MortgageDetails;
   purchaseFees: PurchaseFees;
+  ownedFees: number;
   monthlyBills: MonthlyBills;
   isFirstTimeBuyer: boolean;
   isAdditionalProperty: boolean;
