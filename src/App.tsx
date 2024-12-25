@@ -114,7 +114,7 @@ const loadState = () => {
           <Home className="mx-auto h-12 w-12 text-blue-600" />
           <h1 className="mt-4 text-4xl font-bold text-gray-900">My mortgage</h1>
           <p className="mt-2 text-lg text-gray-600">
-          Enter your details and scroll down to see the results
+            Calculate your mortgage and see how much you can afford
           </p>
         </div>
 
