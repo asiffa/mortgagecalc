@@ -181,24 +181,7 @@ function App() {
               />
             </div>
 
-            <div className="mt-6 overflow-hidden">
-              <ContributionSlider
-                primaryRatio={inputs.primaryApplicant.contributionRatio}
-                onChange={(ratio) => {
-                  setInputs((prev) => ({
-                    ...prev,
-                    primaryApplicant: {
-                      ...prev.primaryApplicant,
-                      contributionRatio: ratio
-                    },
-                    secondaryApplicant: {
-                      ...prev.secondaryApplicant!,
-                      contributionRatio: 100 - ratio
-                    }
-                  }));
-                }}
-              />
-            </div>
+            
           </div>
 
           {/* New Home Details */}
@@ -305,6 +288,12 @@ function App() {
                   {formatCurrency(results.totalPurchaseFees)}
                 </p>
               </div>
+              <div className="mt-4 pt-4 border-t border-gray-200">
+                <p className="text-sm font-medium text-gray-500">Total purchase fees (inc. deposit)</p>
+                <p className="text-2xl font-semibold text-gray-900">
+                  {formatCurrency(results.totalPurchaseFees + inputs.futureHomePrice * inputs.depositPercentage / 100)}
+                </p>
+              </div>
 </div>
 
             {/* Monthly Bills */}
@@ -331,6 +320,26 @@ function App() {
           </div>
         </div>
 
+        <div className="bg-white rounded-lg shadow-md p-6 mt-6">
+          <h2 className="text-lg font-semibold text-gray-900 mb-6">Contribution split</h2>
+          <ContributionSlider
+            primaryRatio={inputs.primaryApplicant.contributionRatio}
+            onChange={(ratio) => {
+              setInputs((prev) => ({
+          ...prev,
+          primaryApplicant: {
+            ...prev.primaryApplicant,
+            contributionRatio: ratio
+          },
+          secondaryApplicant: {
+            ...prev.secondaryApplicant!,
+            contributionRatio: 100 - ratio
+          }
+              }));
+            }}
+          />
+        </div>
+
         {/* Results Section */}
         <div className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-2">
           <ResultCard
@@ -342,39 +351,39 @@ function App() {
             value={formatCurrency(results.totalMortgageRequired)}
           />
           <ResultCard
-            label="Primary monthly share"
+            label="Applicant #1 monthly share"
             value={formatCurrency(results.primaryApplicantShare.monthlyPayment + results.primaryApplicantShare.monthlyBills)}
             description="Including mortgage and bills"
           />
           <ResultCard
-            label="Secondary monthly share"
+            label="Applicant #2 monthly share"
             value={formatCurrency(results.secondaryApplicantShare.monthlyPayment + results.secondaryApplicantShare.monthlyBills)}
             description="Including mortgage and bills"
           />
               <ResultCard
-              label="Primary applicant money left after mortgage and bills"
+              label="Applicant #1 money left after mortgage and bills"
               value={formatCurrency(results.primaryApplicantShare.monthlySalaryAfterTax - results.primaryApplicantShare.monthlyBills - results.primaryApplicantShare.monthlyPayment)}
               description="After paying mortgage and bills" 
               />
                <ResultCard
-              label="Secondary applicant money left after mortgage and bills"
+              label="Applicant #2 money left after mortgage and bills"
               value={formatCurrency(results.secondaryApplicantShare.monthlySalaryAfterTax - results.secondaryApplicantShare.monthlyBills - results.secondaryApplicantShare.monthlyPayment)}
               description="After paying mortgage and bills" 
               />
           <ResultCard
-            label="Primary applicant purchase fees (inc. deposit)"
+            label="Applicant #1 purchase fees (inc. deposit)"
             value={formatCurrency(results.primaryApplicantShare.purchaseFees)}
           />
           <ResultCard
-            label="Secondary applicant purchase fees (inc. deposit)"
+            label="Applicant #2 purchase fees (inc. deposit)"
             value={formatCurrency(results.secondaryApplicantShare.purchaseFees)}
           />
       <ResultCard
-            label="Primary applicant money left after purchase fees"
+            label="Applicant #1 money left after purchase fees"
             value={formatCurrency(results.primaryApplicantShare.savings - results.primaryApplicantShare.purchaseFees)}
           />
                <ResultCard
-            label="Secondary applicant money left after purchase fees"
+            label="Applicant #2 money left after purchase fees"
             value={formatCurrency(results.secondaryApplicantShare.savings - results.secondaryApplicantShare.purchaseFees)}
           />
           <ResultCard
