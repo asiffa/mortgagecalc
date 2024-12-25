@@ -61,6 +61,7 @@ const loadState = () => {
       estateAgentFees: 0
     },
     monthlyBills: {
+      food: 0,
       councilTax: 0,
       utilities: 0,
       insurance: 0,
@@ -111,9 +112,9 @@ const loadState = () => {
       <div className="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <Home className="mx-auto h-12 w-12 text-blue-600" />
-          <h1 className="mt-4 text-4xl font-bold text-gray-900">Mortgage Calculator</h1>
+          <h1 className="mt-4 text-4xl font-bold text-gray-900">My mortgage</h1>
           <p className="mt-2 text-lg text-gray-600">
-            Calculate your mortgage and see how much you can afford
+          Enter your details and scroll down to see the results
           </p>
         </div>
 

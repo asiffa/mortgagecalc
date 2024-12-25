@@ -15,6 +15,7 @@ export interface MonthlyBills {
   utilities: number;
   insurance: number;
   maintenance: number;
+  food: number
   other: number;
 }
 

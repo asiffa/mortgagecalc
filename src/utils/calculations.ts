@@ -130,6 +130,7 @@ export const calculateMortgage = (inputs: MortgageCalculatorInputs): MortgageCal
     inputs.monthlyBills.utilities +
     inputs.monthlyBills.insurance +
     inputs.monthlyBills.maintenance +
+    inputs.monthlyBills.food +
     inputs.monthlyBills.other;
 
   const totalMonthlySalary = 
