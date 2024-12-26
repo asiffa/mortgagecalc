@@ -34,7 +34,7 @@ export const InputField: React.FC<InputFieldProps> = ({
         )}
         <input
           type="number"
-          value={value}
+          value={value.toString()}
           onChange={(e) => onChange(parseFloat(e.target.value) || 0)}
           className={`block w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500 sm:text-sm
             ${prefix ? 'pl-7' : 'pl-3'}

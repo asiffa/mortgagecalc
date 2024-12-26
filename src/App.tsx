@@ -91,7 +91,9 @@ const loadState = () => {
           inputs.isNonUKResident
         )
       },
-      redemptionAmount: prev.currentHousePrice - prev.currentMortgageRemaining
+      redemptionAmount: prev.currentHousePrice - prev.currentMortgageRemaining,
+      primaryDepositAmount: (inputs.futureHomePrice * inputs.depositPercentage) / 100,
+
     }));
   }, [
     inputs.futureHomePrice, 
@@ -100,10 +102,10 @@ const loadState = () => {
     inputs.isNonUKResident,
     inputs.primaryOwnsCurrentProperty,
     inputs.currentHousePrice,
-    inputs.currentMortgageRemaining
+    inputs.currentMortgageRemaining,
   ]);
 
-  const updateInput = (key: keyof MortgageCalculatorInputs, value: unknown) => {
+  const updateInput = (key: keyof MortgageCalculatorInputs, value: any) => {
     setInputs((prev) => ({ ...prev, [key]: value }));
   };
 
